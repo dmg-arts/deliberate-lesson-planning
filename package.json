@@ -1,0 +1,12 @@
+{
+  "name": "deliberate-lesson-planning",
+  "version": "1.0.0",
+  "description": "A progressive web app for the Deliberate Lesson Model worksheet. No accounts, no server, no dependencies.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "serve": "python3 -m http.server 8000",
+    "test": "node tools/test-text.mjs && node tools/test-writer.mjs && node tools/test-layout.mjs"
+  }
+}

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Browser self-test</title></head>
+<body>
+<h1>Browser self-test</h1>
+<p>Open this page from a served copy of the app to confirm it works in your browser.
+Note: headless Chrome has no working IndexedDB, so the four storage checks fail there
+by design — the app detects that and degrades to export-only rather than hanging.</p>
+<pre id="results">running…</pre>
+<script type="module">
+/*
+ * Exercises the real browser paths that Node cannot cover: IndexedDB, Blob,
+ * File, btoa/atob, and crypto.randomUUID. Open this page in any browser to
+ * confirm the app works there; it writes only to its own origin's storage.
+ */
+import { buildPlanPdf, planFilename } from '../js/pdf/layout.js';
+import { extractPlan } from '../js/pdf/embed.js';
+import { emptyPlan, fieldIds } from '../js/schema.js';
+import { savePlan, getPlan, listPlans, deletePlan, setPref, getPref } from '../js/storage.js';
+import { mailSubject, canShareFiles } from '../js/share.js';
+
+const lines = [];
+let failures = 0;
+const check = (name, ok, detail = '') => {
+  if (!ok) failures++;
+  lines.push(`${ok ? 'PASS' : 'FAIL'}  ${name}${ok || !detail ? '' : ' — ' + detail}`);
+};
+
+try {
+  const plan = emptyPlan();
+  plan.topic = 'Browser Round Trip';
+  plan.course = 'AV-210 / Week 4';
+  plan.level = 'P2';
+  plan.assessmentType = 'Formative';
+  let n = 0;
+  for (const id of fieldIds()) if (!plan[id]) plan[id] = `value ${++n} — “quoted” café · ${id}`;
+
+  const bytes = buildPlanPdf(plan);
+  check('PDF built in browser', bytes instanceof Uint8Array && bytes.length > 3000,
+    `${bytes.length} bytes`);
+
+  const blob = new Blob([bytes], { type: 'application/pdf' });
+  check('Blob is a PDF', blob.type === 'application/pdf' && blob.size === bytes.length);
+  check('File constructor works (needed for share sheet)',
+    new File([blob], 'x.pdf', { type: 'application/pdf' }).size === bytes.length);
+
+  const back = extractPlan(bytes);
+  check('plan extracted from its own PDF', !!back);
+  const diff = back ? fieldIds().filter((id) => back.data[id] !== plan[id]) : fieldIds();
+  check('all 30 fields round-trip through btoa/atob', diff.length === 0, diff.join(', '));
+
+  check('filename is sane', /^Browser-Round-Trip-\d{4}-\d{2}-\d{2}\.pdf$/.test(planFilename(plan)),
+    planFilename(plan));
+  check('mail subject includes topic and course',
+    mailSubject(plan).includes('Browser Round Trip') && mailSubject(plan).includes('AV-210'));
+
+  const saved = await savePlan({ data: plan });
+  check('saved to IndexedDB', saved.persisted === true,
+    'storage unavailable in this browser — the app falls back to export-only');
+  const loaded = await getPlan(saved.id);
+  check('read back from IndexedDB', loaded && loaded.data.topic === plan.topic);
+  check('appears in the drafts list', (await listPlans()).some((p) => p.id === saved.id));
+  check('deleted from IndexedDB', await deletePlan(saved.id));
+  check('gone after delete', (await getPlan(saved.id)) === null);
+
+  setPref('driveUrl', 'https://example.com/folder');
+  check('preference persisted', getPref('driveUrl') === 'https://example.com/folder');
+  setPref('driveUrl', '');
+
+  lines.push(`\nshare-with-files supported here: ${canShareFiles()}`);
+} catch (error) {
+  failures++;
+  lines.push(`FAIL  threw: ${error && error.stack || error}`);
+}
+
+lines.push(failures ? `\n${failures} failure(s)` : '\nbrowser checks passed');
+document.getElementById('results').textContent = lines.join('\n');
+document.title = failures ? 'FAILED' : 'OK';
+
+/* Also report to the dev server's access log, so an automated run can read the
+   result without depending on when a headless browser snapshots the DOM. */
+const failed = lines.filter((l) => l.startsWith('FAIL')).map((l) => l.slice(6).split(' —')[0]);
+const total = lines.filter((l) => /^(PASS|FAIL)/.test(l)).length;
+fetch(`/__selftest?total=${total}&failures=${failures}&failed=` +
+  encodeURIComponent(failed.join('|') || 'none')).catch(() => {});
+</script>
+</body>
+</html>

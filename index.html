@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deliberate Lesson Planning</title>
+<meta name="description" content="A free, offline, account-free planner for the Deliberate Lesson Model worksheet. Exports a print-ready PDF you can reopen and edit.">
+<meta name="theme-color" content="#131c30">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <h1>Teaching on Purpose <span class="model">The Deliberate Lesson Model</span></h1>
+    <span class="spacer"></span>
+    <button id="install" class="btn" type="button" hidden>Install app</button>
+  </div>
+</header>
+
+<main>
+
+  <section class="card">
+    <h2>Plan a lesson</h2>
+    <p class="lede">The three-stage blueprint worksheet: backward design, feedback strategy, and cognition &amp; intensity.</p>
+    <p class="btn-row">
+      <a class="btn btn-primary" href="form.html">New lesson plan</a>
+    </p>
+    <p class="note">Your work saves to this device as you type. Nothing is uploaded, and there is no account to create.</p>
+  </section>
+
+  <section class="card">
+    <h2>Continue a plan</h2>
+    <p class="lede">Drafts saved in this browser, on this device.</p>
+    <ul class="drafts" id="drafts"></ul>
+    <p class="empty" id="drafts-empty">No saved plans yet. Start one above, or reopen an exported PDF.</p>
+  </section>
+
+  <section class="card">
+    <h2>Reopen an exported plan</h2>
+    <p class="lede">A worksheet exported from this app carries its own data inside the PDF, so you can pick up editing where you left off &mdash; on any device.</p>
+    <div class="dropzone" id="dropzone">
+      <p>Drop a worksheet PDF here, or</p>
+      <p class="btn-row" style="justify-content:center">
+        <label class="btn" for="pdf-input">Choose a PDF…</label>
+      </p>
+      <input type="file" id="pdf-input" accept="application/pdf,.pdf" hidden>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Where you keep finished plans</h2>
+    <p class="lede">Exports download to this device. Save the link to your own cloud folder &mdash; Google&nbsp;Drive, iCloud, OneDrive, Dropbox, a school share &mdash; and it will be one tap away.</p>
+
+    <p class="btn-row" id="drive-link-row">
+      <a class="btn btn-primary" id="drive-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Open my drive folder</a>
+      <button class="btn" id="drive-change" type="button">Change folder link</button>
+    </p>
+
+    <div id="drive-editor" hidden>
+      <p class="btn-row">
+        <input type="text" id="drive-url" inputmode="url" autocomplete="url"
+               placeholder="https://drive.google.com/drive/folders/…" aria-label="Cloud folder web address">
+      </p>
+      <p class="btn-row"><button class="btn btn-primary" id="drive-save" type="button">Save link</button></p>
+    </div>
+
+    <p class="note">This link is only stored on this device. The app never signs in to a drive or uploads anything for you &mdash; that would require an account, which this app deliberately does not have.</p>
+  </section>
+
+  <section class="card">
+    <h2>About</h2>
+    <p class="lede">Free, open source, and built to keep working when the network doesn't.</p>
+    <ul>
+      <li><strong>Works offline.</strong> Install it and the whole app, including PDF export, runs with no connection.</li>
+      <li><strong>No accounts, no tracking, no server.</strong> Your lesson plans never leave your device unless you send them.</li>
+      <li><strong>Zero dependencies.</strong> The PDF writer is part of this app; nothing is loaded from anyone else.</li>
+      <li><strong>Blank plans print.</strong> Export without filling anything in to get a paper worksheet.</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer class="site">
+  <p>Deliberate Lesson Planning &mdash; free and open source under the MIT licence.</p>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script type="module" src="js/app.js"></script>
+<script type="module" src="js/pwa.js"></script>
+</body>
+</html>

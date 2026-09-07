@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson Plan · Deliberate Lesson Planning</title>
+<meta name="theme-color" content="#131c30">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <a class="btn" href="index.html">&larr; All plans</a>
+    <h1>Teaching on Purpose <span class="model">The Deliberate Lesson Model</span></h1>
+    <span class="spacer"></span>
+    <span class="savestate" id="savestate" role="status" aria-live="polite">Not saved yet</span>
+  </div>
+</header>
+
+<main>
+  <form id="worksheet" autocomplete="off" novalidate>
+    <section class="card">
+      <div class="identity" id="identity"></div>
+    </section>
+
+    <div id="stages"></div>
+  </form>
+
+  <div class="actionbar">
+    <button class="btn btn-primary" id="download" type="button">Download PDF</button>
+    <button class="btn" id="email" type="button">Email</button>
+    <span class="spacer"></span>
+    <button class="btn btn-danger" id="delete" type="button">Delete</button>
+  </div>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script type="module" src="js/form.js"></script>
+<script type="module" src="js/pwa.js"></script>
+</body>
+</html>
