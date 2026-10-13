@@ -20,9 +20,9 @@
 export const META = {
   title: 'Teaching on Purpose',
   subtitle: 'The Deliberate Lesson Model',
-  worksheet: 'Blueprint Worksheet',
+  worksheet: 'Worksheet: Practice / Group',
   footer:
-    'Lesson design MUST show explicit connections across all three stages. ' +
+    'Lesson design MUST show explicit connections across all three parts. ' +
     'They are not separate boxes, but one framework.'
 };
 
@@ -53,7 +53,7 @@ export const STAGES = [
   {
     id: 'stage1',
     number: 1,
-    title: 'Stage 1: Backward Design',
+    title: 'Part 1: Backward Design',
     color: 'stage1',
     fields: [
       {
@@ -102,14 +102,14 @@ export const STAGES = [
             label: 'GUIDED PRACTICE',
             type: 'textarea',
             rows: 3,
-            help: 'Learners practice WITH the instructor. Corrective feedback here.'
+            help: 'Cadets practice WITH the instructor. Corrective feedback here.'
           },
           {
             id: 'independent',
             label: 'INDEPENDENT PRACTICE',
             type: 'textarea',
             rows: 3,
-            help: 'Learners work alone. Instructor observes. Formative assessment.'
+            help: 'Cadets work alone. Instructor observes. Formative assessment.'
           },
           {
             id: 'closure',
@@ -126,7 +126,7 @@ export const STAGES = [
   {
     id: 'stage2',
     number: 2,
-    title: 'Stage 2: Feedback Strategy Design',
+    title: 'Part 2: Feedback Strategy Design',
     color: 'stage2',
     fields: [
       {
@@ -181,11 +181,11 @@ export const STAGES = [
           },
           {
             id: 'toneSignals',
-            label: 'Learner signals of misalignment',
+            label: 'Cadet signals of misalignment',
             type: 'textarea',
             rows: 3,
             help:
-              'Identify learner signals (verbal / non-verbal) indicating tone or timing misalignment.'
+              'Identify cadet signals (verbal / non-verbal) identifying tone or timing misalignment.'
           }
         ]
       }
@@ -195,7 +195,7 @@ export const STAGES = [
   {
     id: 'stage3',
     number: 3,
-    title: 'Stage 3: Cognition & Intensity Design',
+    title: 'Part 3: Cognition & Intensity Design',
     color: 'stage3',
     fields: [
       {
@@ -225,7 +225,7 @@ export const STAGES = [
           },
           {
             id: 'scaffold2',
-            label: 'Stage 2 — Partial Cues · Green / Yellow',
+            label: 'Stage 2 — Partial Cues · Yellow',
             type: 'textarea',
             rows: 2
           },
@@ -240,14 +240,14 @@ export const STAGES = [
             label: 'Stage 4 — Evaluation · Red',
             type: 'textarea',
             rows: 2,
-            help: 'NOT until Stage 3 is consistent.'
+            help: 'NOT until Stage 3 is consistent: 8+ of 10, on two separate sessions.'
           }
         ]
       },
       {
         id: 'amygdala',
         number: 11,
-        label: 'Amygdala Hijack Recognition',
+        label: 'Cognitive Overload (Hijack) Recognition',
         type: 'group',
         help: 'Three signals to watch for:',
         fields: [

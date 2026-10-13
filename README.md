@@ -1,7 +1,7 @@
 # Deliberate Lesson Planning
 
 A progressive web app for the **Teaching on Purpose · Deliberate Lesson Model**
-blueprint worksheet. Fill in the three-stage plan, export a print-ready PDF, and
+worksheet. Fill in the three-part plan, export a print-ready PDF, and
 reopen that same PDF later to keep editing.
 
 No accounts. No server. No dependencies. Works offline.
@@ -11,7 +11,7 @@ No accounts. No server. No dependencies. Works offline.
 - **The full worksheet** — all twelve numbered items across Backward Design,
   Feedback Strategy Design, and Cognition & Intensity Design.
 - **Autosaves as you type**, to your own device. Closing the tab loses nothing.
-- **Exports a PDF** that reproduces the printed worksheet — coloured stage
+- **Exports a PDF** that reproduces the printed worksheet — coloured part
   bands, numbered items, and the guidance text.
 - **Reopens its own exports.** Every PDF carries its source data inside it, so
   dropping one back into the app restores every field. Move the file between
