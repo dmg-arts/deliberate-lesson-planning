@@ -7,7 +7,7 @@
  * activate.
  */
 
-const VERSION = 'dlp-v2';
+const VERSION = 'dlp-v3';
 const ASSETS = [
   './',
   'index.html',

@@ -185,7 +185,7 @@ export const STAGES = [
             type: 'textarea',
             rows: 3,
             help:
-              'Identify cadet signals (verbal / non-verbal) identifying tone or timing misalignment.'
+              'Identify cadet signals (verbal / non-verbal) of tone or timing misalignment.'
           }
         ]
       }
